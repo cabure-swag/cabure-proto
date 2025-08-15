@@ -67,18 +67,21 @@ export default function Home() {
 
   return (
     <main style={{ padding: 20, fontFamily: 'Inter, system-ui, Arial', maxWidth: 980, margin: '0 auto' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <h1 style={{ margin: 0 }}>CABURE — Marcas</h1>
-        <div>
+      <header style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+        <h1 style={{ margin: 0, flex: '0 0 auto' }}>CABURE — Marcas</h1>
+
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 'auto' }}>
+          <a href="/cart" style={{ textDecoration: 'none' }}>🛒 Carrito</a>
+
           {!session ? (
             <button onClick={loginGoogle}>Entrar con Google</button>
           ) : (
             <>
-              <span style={{ marginRight: 10 }}>Hola, {session.user.email}</span>
+              <span style={{ color: '#374151' }}>Hola, {session.user.email}</span>
               <button onClick={logout}>Salir</button>
             </>
           )}
-        </div>
+        </nav>
       </header>
 
       <p style={{ color: '#4b5563', marginTop: 0 }}>
