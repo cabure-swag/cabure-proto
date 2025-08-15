@@ -1,3 +1,3 @@
-# CABURE Proto (styled)
+# CABURE.STORE — Funcionalidades 1-3
 
-Prototipo con diseño global aplicado.
+Sigue las instrucciones del mensaje del asistente.
