@@ -1,5 +1,6 @@
 import React from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { BRANDS } from '../data/brands';
 
 export default function Home() {
   const [session, setSession] = React.useState(null);
@@ -13,24 +14,88 @@ export default function Home() {
   async function loginGoogle() {
     await supabase.auth.signInWithOAuth({ provider: 'google' });
   }
-
   async function logout() {
     await supabase.auth.signOut();
   }
 
-  return (
-    <main style={{ padding: 20, fontFamily: 'Inter, system-ui, Arial' }}>
-      <h1>CABURE — Demo</h1>
-      <p>Prototipo funcionando para mostrar a los vendedores.</p>
+  function BrandCard({ brand }) {
+    const size = 72;
+    const initials = brand.name
+      .split(' ')
+      .map(p => p[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
 
-      {!session ? (
-        <button onClick={loginGoogle} style={{ marginTop: 12 }}>Entrar con Google</button>
-      ) : (
-        <>
-          <div style={{ marginTop: 12 }}>Hola, {session.user.email}</div>
-          <button onClick={logout} style={{ marginTop: 8 }}>Salir</button>
-        </>
-      )}
+    return (
+      <a
+        href={`/marcas/${brand.slug}`}
+        style={{
+          display: 'block',
+          border: '1px solid #e5e7eb',
+          borderRadius: 12,
+          padding: 16,
+          textDecoration: 'none',
+          color: '#111827',
+          background: '#fff',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div
+            style={{
+              width: size,
+              height: size,
+              borderRadius: '50%',
+              background: brand.logoColor,
+              display: 'grid',
+              placeItems: 'center',
+              color: 'white',
+              fontWeight: 700,
+              fontSize: 20
+            }}
+            aria-label={`Logo de ${brand.name}`}
+            title={brand.name}
+          >
+            {initials}
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 600 }}>{brand.name}</div>
+        </div>
+      </a>
+    );
+  }
+
+  return (
+    <main style={{ padding: 20, fontFamily: 'Inter, system-ui, Arial', maxWidth: 980, margin: '0 auto' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <h1 style={{ margin: 0 }}>CABURE — Marcas</h1>
+        <div>
+          {!session ? (
+            <button onClick={loginGoogle}>Entrar con Google</button>
+          ) : (
+            <>
+              <span style={{ marginRight: 10 }}>Hola, {session.user.email}</span>
+              <button onClick={logout}>Salir</button>
+            </>
+          )}
+        </div>
+      </header>
+
+      <p style={{ color: '#4b5563', marginTop: 0 }}>
+        Seleccioná una marca para ver su catálogo por categorías.
+      </p>
+
+      <section
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+          gap: 16
+        }}
+      >
+        {BRANDS.map((b) => (
+          <BrandCard key={b.id} brand={b} />
+        ))}
+      </section>
     </main>
   );
 }
