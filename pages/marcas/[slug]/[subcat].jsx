@@ -1,4 +1,3 @@
-// pages/marcas/[slug]/[subcat].jsx
 import React from "react";
 import { useRouter } from "next/router";
 import { BRANDS } from "../../../data/brands";
@@ -18,8 +17,8 @@ export default function SubcategoryPage() {
 
   if (!brand) {
     return (
-      <main style={{ padding: 20, fontFamily: "Inter, system-ui, Arial", maxWidth: 980, margin: "0 auto" }}>
-        <a href="/" style={{ textDecoration: "none" }}>← Volver</a>
+      <main className="container">
+        <a href="/">← Volver</a>
         <h1 style={{ marginTop: 12 }}>Marca no encontrada</h1>
       </main>
     );
@@ -27,8 +26,8 @@ export default function SubcategoryPage() {
 
   if (!valid) {
     return (
-      <main style={{ padding: 20, fontFamily: "Inter, system-ui, Arial", maxWidth: 980, margin: "0 auto" }}>
-        <a href={`/marcas/${slug}`} style={{ textDecoration: "none" }}>← Volver a {brand.name}</a>
+      <main className="container">
+        <a href={`/marcas/${slug}`}>← Volver a {brand.name}</a>
         <h1 style={{ marginTop: 12 }}>Categoría no válida</h1>
         <p>Las categorías disponibles son: remera, pantalon, buzo, campera, otros.</p>
       </main>
@@ -36,47 +35,30 @@ export default function SubcategoryPage() {
   }
 
   return (
-    <main style={{ padding: 20, fontFamily: "Inter, system-ui, Arial", maxWidth: 980, margin: "0 auto" }}>
-      <a href={`/marcas/${slug}`} style={{ textDecoration: "none" }}>← Volver a {brand.name}</a>
-      <header style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 12, marginBottom: 8 }}>
-        <div
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: "50%",
-            background: brand.logoColor,
-            display: "grid",
-            placeItems: "center",
-            color: "white",
-            fontWeight: 700
-          }}
-        >
+    <main className="container">
+      <a href={`/marcas/${slug}`}>← Volver a {brand.name}</a>
+      <header className="header" style={{marginTop:12, marginBottom:8}}>
+        <div className="logoBadge" style={{background: brand.logoColor}}>
           {brand.name.split(" ").map(p => p[0]).join("").slice(0,2).toUpperCase()}
         </div>
         <h1 style={{ margin: 0 }}>{brand.name} — {subcat.charAt(0).toUpperCase()+subcat.slice(1)}</h1>
-        <a href="/cart" style={{ marginLeft: "auto", textDecoration: "none" }}>🛒 Ver carrito</a>
+        <a href="/cart" className="btn" style={{ marginLeft: 'auto' }}>🛒 Ver carrito</a>
       </header>
 
       {list.length === 0 ? (
-        <p>No hay productos cargados en esta categoría todavía.</p>
+        <p className="muted">No hay productos cargados en esta categoría todavía.</p>
       ) : (
-        <section
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-            gap: 16
-          }}
-        >
+        <section className="grid">
           {list.map((p) => (
-            <div key={p.id} style={{ border: "1px solid #e5e7eb", borderRadius: 12, padding: 16, background: "#fff" }}>
+            <div key={p.id} className="card">
               <div style={{ fontWeight: 600 }}>{p.name}</div>
-              <div style={{ color: "#6b7280", fontSize: 14, marginTop: 4 }}>
+              <div className="muted" style={{ marginTop: 4 }}>
                 ${p.price.toLocaleString("es-AR")}
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10 }}>
                 <QtyAdder onAdd={(qty) => addItem({ ...p, brand: brand.slug }, qty)} />
-                <a href="/cart" style={{ marginLeft: "auto", textDecoration: "none" }}>Ver carrito</a>
+                <a href="/cart" style={{ marginLeft: "auto" }}>Ver carrito</a>
               </div>
             </div>
           ))}
@@ -90,14 +72,9 @@ function QtyAdder({ onAdd }) {
   const [qty, setQty] = React.useState(1);
   return (
     <div style={{ display: "flex", gap: 8 }}>
-      <input
-        type="number"
-        min={1}
-        value={qty}
-        onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || "1", 10)))}
-        style={{ width: 64 }}
-      />
-      <button onClick={() => onAdd(qty)}>Agregar</button>
+      <input className="number" type="number" min={1} value={qty}
+        onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || "1", 10)))} style={{ width: 84 }}/>
+      <button className="btn btn-primary" onClick={() => onAdd(qty)}>Agregar</button>
     </div>
   );
 }

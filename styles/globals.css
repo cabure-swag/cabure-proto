@@ -1,0 +1,94 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --bg:#0b0c10;
+  --panel:#111217;
+  --card:#171923;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --brand:#7c3aed;
+  --brand-2:#2563eb;
+  --border:#262836;
+  --ok:#16a34a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #0b0c10 0%, #0f1222 80%);
+  color: var(--text);
+}
+
+a{color: var(--brand-2); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.container{
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header{
+  display:flex; align-items:center; gap:12px; margin-bottom:16px;
+}
+
+.header h1{margin:0; font-weight:700; letter-spacing:0.5px}
+
+.nav{display:flex; align-items:center; gap:12px; margin-left:auto}
+.nav a{padding:8px 10px; border-radius:8px; background:transparent; border:1px solid var(--border)}
+.nav a:hover{background:rgba(255,255,255,0.04)}
+
+.btn{
+  padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+  background:linear-gradient(180deg,#1f2233, #191b27);
+  color:#fff; cursor:pointer;
+}
+.btn:hover{filter:brightness(1.05)}
+
+.btn-primary{
+  border:0;
+  background:linear-gradient(180deg, #8b5cf6, #7c3aed);
+}
+
+.card{
+  background: linear-gradient(180deg, #171923, #131520);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap:16px;
+}
+
+.logoBadge{
+  width:84px; height:84px; border-radius:50%;
+  display:grid; place-items:center;
+  font-weight:700; font-size:22px; color:white;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 30px rgba(124,58,237,0.15);
+}
+
+.muted{color:var(--muted)}
+
+.input, .textarea, .number{
+  width:100%; padding:10px 12px; border-radius:10px;
+  border:1px solid var(--border); background:#0f1117; color:#fff;
+}
+.textarea{min-height:96px}
+.row{display:grid; gap:12px}
+.list{list-style:none; padding:0; margin:0}
+.hr{height:1px; background:var(--border); margin:12px 0}
+
+.total{font-weight:700; font-size:18px}
+
+.badge{
+  display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid var(--border);
+  font-size:12px; color:var(--muted);
+}
