@@ -40,6 +40,7 @@ export default function Header(){
       <div className="header-inner container" style={{paddingLeft:0,paddingRight:0}}>
         <a href="/" className="brand-title" style={{color:'#fff', textDecoration:'none'}}>CABURE.STORE</a>
         <nav className="nav" style={{marginLeft:'auto'}}>
+          <a href="/support">🆘 Soporte</a>
           <a href="/cart">🛒 Carrito</a>
           <a href="/chats">💬 Mis chats</a>
           {(role==='admin' || role==='vendedor') && <button className="btn" onClick={goDashboard}>Dashboard</button>}
