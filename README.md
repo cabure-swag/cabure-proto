@@ -1,3 +1,1 @@
-# CABURE.STORE — Funcionalidades 1-3
-
-Sigue las instrucciones del mensaje del asistente.
+CABURE.STORE listo para subir a Vercel. Variables: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY. Ejecutá supabase/schema.sql y creá tu perfil admin en profiles.
