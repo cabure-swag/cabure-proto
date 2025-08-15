@@ -19,6 +19,7 @@ create table if not exists public.brands (
   color text,
   description text,
   active boolean not null default true,
+  logo_url text,
   bank_alias text,
   bank_cbu text,
   mp_access_token text,
@@ -86,7 +87,6 @@ create table if not exists public.shipping_addresses (
 );
 alter table public.shipping_addresses enable row level security;
 
--- Chats
 create table if not exists public.chats (
   id uuid primary key default gen_random_uuid(),
   type text not null check (type in ('order','support')),
@@ -109,7 +109,6 @@ create table if not exists public.chat_messages (
 );
 alter table public.chat_messages enable row level security;
 
--- Policies
 create policy "orders_user_ins" on public.orders for insert with check (auth.uid() = user_id or user_id is null);
 create policy "orders_user_sel" on public.orders for select using (auth.uid() = user_id);
 create policy "orders_admin_all" on public.orders for all using (exists (select 1 from public.profiles p where p.user_id = auth.uid() and p.role='admin'));

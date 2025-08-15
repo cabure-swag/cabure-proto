@@ -1,5 +1,5 @@
 {
-  "name": "cabure-store-pro",
+  "name": "cabure-store-pro-plus",
   "private": true,
   "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
   "dependencies": {

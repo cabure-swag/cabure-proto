@@ -10,10 +10,11 @@ export default function BrandPage(){
   const router=useRouter(); const { slug }=router.query; const { addItem }=useCart();
   const [brand,setBrand]=React.useState(null); const [products,setProducts]=React.useState([]);
   const [filter,setFilter]=React.useState('todos'); const [canEdit,setCanEdit]=React.useState(false); const [desc,setDesc]=React.useState('');
+  const [logoUrl,setLogoUrl]=React.useState(''); const [bank,setBank]=React.useState({alias:'',cbu:''}); const [mpToken,setMpToken]=React.useState('');
 
   React.useEffect(()=>{ if(!slug) return; (async()=>{
     const { data: b } = await supabase.from('brands').select('*').eq('slug',slug).maybeSingle();
-    setBrand(b); setDesc(b?.description||'');
+    setBrand(b); setDesc(b?.description||''); setLogoUrl(b?.logo_url||''); setBank({alias:b?.bank_alias||'', cbu:b?.bank_cbu||''}); setMpToken(b?.mp_access_token||'');
     const { data:{session} } = await supabase.auth.getSession();
     if(session && b){
       const uid=session.user.id;
@@ -25,7 +26,12 @@ export default function BrandPage(){
     setProducts(p||[]);
   })() },[slug]);
 
-  async function saveDescription(){ if(!brand) return; const { error } = await supabase.from('brands').update({description:desc}).eq('id',brand.id); if(error) alert('Error: '+error.message); else alert('Descripción guardada'); }
+  async function saveBrand(){
+    if(!brand) return;
+    const payload={description:desc, logo_url:logoUrl, bank_alias:bank.alias||null, bank_cbu:bank.cbu||null, mp_access_token:mpToken||null};
+    const { error } = await supabase.from('brands').update(payload).eq('id',brand.id);
+    if(error) alert('Error: '+error.message); else alert('Datos de la marca guardados');
+  }
   function onAddToCart(p){ addItem({id:p.id,name:p.name,price:Number(p.price||0),brand_id:p.brand_id||brand?.id||null,brand:p.brand_slug||slug},1); }
 
   return (<main className="container">
@@ -40,8 +46,27 @@ export default function BrandPage(){
       </header>
 
       <section className="card" style={{marginTop:12}}>
-        <h2 style={{marginTop:0}}>Descripción</h2>
-        {!canEdit ? (<p className="muted">{desc || 'Sin descripción.'}</p>) : (<div className="row"><textarea className="textarea" value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Escribí la descripción de la marca..."/><button className="btn btn-primary" onClick={saveDescription}>Guardar</button></div>)}
+        <h2 style={{marginTop:0}}>Descripción y Medios de pago</h2>
+        {!canEdit ? (
+          <>
+            <p className="muted">{desc || 'Sin descripción.'}</p>
+            {(bank.alias || bank.cbu) && <p className="muted">Transferencia: {bank.alias || bank.cbu}</p>}
+          </>
+        ) : (
+          <div className="row">
+            <label>Descripción</label>
+            <textarea className="textarea" value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Escribí la descripción de la marca..."/>
+            <label>URL del logo (opcional)</label>
+            <input className="input" value={logoUrl} onChange={e=>setLogoUrl(e.target.value)} placeholder="https://.../mi-logo.png"/>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+              <div className="row"><label>Alias</label><input className="input" value={bank.alias} onChange={e=>setBank({...bank,alias:e.target.value})} /></div>
+              <div className="row"><label>CBU</label><input className="input" value={bank.cbu} onChange={e=>setBank({...bank,cbu:e.target.value})} /></div>
+            </div>
+            <label>Mercado Pago Access Token (se guarda por marca)</label>
+            <input className="input" type="password" value={mpToken} onChange={e=>setMpToken(e.target.value)} placeholder="APP_USR-..." />
+            <button className="btn btn-primary" onClick={saveBrand}>Guardar</button>
+          </div>
+        )}
       </section>
 
       <section style={{marginTop:16}}>

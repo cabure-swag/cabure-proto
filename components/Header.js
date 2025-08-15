@@ -38,7 +38,10 @@ export default function Header(){
   return (
     <div className="header">
       <div className="header-inner container" style={{paddingLeft:0,paddingRight:0}}>
-        <a href="/" className="brand-title" style={{color:'#fff', textDecoration:'none'}}>CABURE.STORE</a>
+        <a href="/" className="logo" style={{textDecoration:'none', color:'#fff'}}>
+          <img src="/logo.png" alt="CABURE.STORE" />
+          <span className="brand-title">CABURE.STORE</span>
+        </a>
         <nav className="nav" style={{marginLeft:'auto'}}>
           <a href="/support">🆘 Soporte</a>
           <a href="/cart">🛒 Carrito</a>

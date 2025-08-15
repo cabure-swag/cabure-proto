@@ -6,10 +6,12 @@ body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180de
 a{color:var(--brand2);text-decoration:none}a:hover{text-decoration:underline}
 .container{max-width:1080px;margin:0 auto;padding:20px}
 .header{position:sticky;top:0;z-index:10;background:rgba(11,12,16,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
-.header-inner{display:flex;align-items:center;gap:12px;padding:12px 20px}
-.brand-title{font-weight:800;letter-spacing:.5px}
+.header-inner{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.brand-title{font-weight:800;letter-spacing:.5px;font-size:18px}
 .nav{display:flex;align-items:center;gap:12px;margin-left:auto}
-.nav a{padding:8px 10px;border-radius:8px;border:1px solid var(--border)}
+.nav a{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:#0f1117}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{width:32px;height:32px;border-radius:6px;border:1px solid rgba(255,255,255,.08)}
 .btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:linear-gradient(180deg,#1f2233,#191b27);color:#fff;cursor:pointer}
 .btn:hover{filter:brightness(1.05)}
 .btn-primary{border:0;background:linear-gradient(180deg,#8b5cf6,#7c3aed)}
@@ -29,3 +31,5 @@ a{color:var(--brand2);text-decoration:none}a:hover{text-decoration:underline}
 .qty{display:flex;align-items:center;gap:8}
 .qty button{width:28px;height:28px;border-radius:6px}
 .toast{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;border:1px solid var(--border);padding:10px 12px;border-radius:8px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi .card{padding:12px}

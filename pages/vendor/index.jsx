@@ -36,6 +36,7 @@ export default function Vendor(){
       <div className="card"><div className="row">
         <label>Marca</label>
         <select className="input" onChange={onSelectBrand} value={selectedBrand?.id||''}>{brands.map(b=><option key={b.id} value={b.id}>{b.name}</option>)}</select>
+        {selectedBrand && <a className="btn" href={`/vendor/analytics?brand=${selectedBrand.id}`}>Ver estadísticas</a>}
       </div></div>
 
       <section className="card" style={{marginTop:12}}>
