@@ -33,9 +33,8 @@ export default function CartPage() {
           </div>
 
           <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-            {/* Próximo paso: Checkout / Datos de envío (Correo Argentino) */}
-            <a href="#" onClick={(e)=>e.preventDefault()} style={{ padding: "8px 12px", border: "1px solid #e5e7eb", borderRadius: 8, textDecoration: "none" }}>
-              Simular pedido (próximo paso)
+            <a href="/checkout" style={{ padding: "8px 12px", border: "1px solid #e5e7eb", borderRadius: 8, textDecoration: "none" }}>
+              Continuar al checkout
             </a>
             <button onClick={clearCart}>Vaciar carrito</button>
           </div>

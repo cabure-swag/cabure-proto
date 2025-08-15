@@ -72,6 +72,7 @@ export default function Home() {
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 'auto' }}>
           <a href="/cart" style={{ textDecoration: 'none' }}>🛒 Carrito</a>
+          <a href="/chats" style={{ textDecoration: 'none' }}>💬 Mis chats</a>
 
           {!session ? (
             <button onClick={loginGoogle}>Entrar con Google</button>

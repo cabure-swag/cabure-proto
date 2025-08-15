@@ -68,7 +68,7 @@ export default function BrandPage() {
             {cat.name === 'Ropa' && (
               <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
                 {cat.sub.map((s) => {
-                  const subSlug = s.toLowerCase(); // remera, pantalon, buzo, campera
+                  const subSlug = s.toLowerCase();
                   return (
                     <li key={s} style={{ marginBottom: 6 }}>
                       <a

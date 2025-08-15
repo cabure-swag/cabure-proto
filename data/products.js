@@ -45,7 +45,6 @@ export const PRODUCTS = {
   }
 };
 
-// Utilidad para validar categorías y normalizar slugs
 export const VALID_SUBCATS = ["remera", "pantalon", "buzo", "campera", "otros"];
 
 export function toSubcatSlug(label) {
