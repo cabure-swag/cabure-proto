@@ -1,3 +1,4 @@
+// pages/marcas/[slug].jsx
 import React from 'react';
 import { useRouter } from 'next/router';
 import { BRANDS } from '../../data/brands';
@@ -45,6 +46,7 @@ export default function BrandPage() {
           {brand.name.split(' ').map(p => p[0]).join('').slice(0,2).toUpperCase()}
         </div>
         <h1 style={{ margin: 0 }}>{brand.name}</h1>
+        <a href="/cart" style={{ marginLeft: 'auto', textDecoration: 'none' }}>🛒 Ver carrito</a>
       </header>
 
       <p style={{ color: '#4b5563' }}>
@@ -65,17 +67,31 @@ export default function BrandPage() {
 
             {cat.name === 'Ropa' && (
               <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 18 }}>
-                {cat.sub.map(s => (
-                  <li key={s} style={{ marginBottom: 6 }}>
-                    {/* Próximo paso: linkear a lista de productos por subcategoría */}
-                    <span style={{ cursor: 'default' }}>{s}</span>
-                  </li>
-                ))}
+                {cat.sub.map((s) => {
+                  const subSlug = s.toLowerCase(); // remera, pantalon, buzo, campera
+                  return (
+                    <li key={s} style={{ marginBottom: 6 }}>
+                      <a
+                        href={`/marcas/${brand.slug}/${subSlug}`}
+                        style={{ textDecoration: 'none', color: '#2563eb' }}
+                      >
+                        {s}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             )}
 
             {cat.name === 'Otros' && (
-              <div style={{ color: '#6b7280' }}>Productos de otras categorías.</div>
+              <div style={{ color: '#6b7280' }}>
+                <a
+                  href={`/marcas/${brand.slug}/otros`}
+                  style={{ textDecoration: 'none', color: '#2563eb' }}
+                >
+                  Ver “Otros”
+                </a>
+              </div>
             )}
 
             <div style={{ marginTop: 12, fontSize: 12, color: '#9ca3af' }}>
